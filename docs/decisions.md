@@ -9,3 +9,5 @@ D3 (2026-11-14): The .env file lives in this repository and is ignored by Git. E
 D4 (2026-11-14): The sandbox uses Docker's bridge network. A test container reached the model endpoint without host networking.
 
 D5 (2026-11-14): Loc2Repair runs its commands from its own folder, so every path I pass to it is absolute and points into this repository.
+
+D6 (2026-11-15): Pilot uses 20 tasks from SWE-bench Verified, chosen with seed 2026 at dataset revision 78f471bf655a3137b2e8a75af1501690ec009ec3 (docs/pilot_tasks.json). The exporter loads the latest revision, so task IDs are checked after export (scripts/check_pilot_export.py). Task contents are not checked.
