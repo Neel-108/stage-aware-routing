@@ -16,3 +16,25 @@ Notes:
 - The repair sandbox has no project dependencies installed. Gemma created a mock of erfa, which suggests missing dependencies affected its attempt and it is not proven.
 - Both models ran in the same sandbox image, so conditions are consistent. Missing dependencies may still affect models differently.
 - Live container check during the Gemma run: user 1000:1000, bridge network, read-only root, all capabilities dropped, 4 GB memory, 2 CPUs, 512 process limit.
+
+## 2026-11-16: pilot, 20 tasks (baseline arm)
+
+Task list: docs/pilot_tasks.json. Same tasks, sandbox, timeout (1800 s) and worker count for both models.
+
+| | Qwen3.8 | Gemma-4-26B-A4B-it |
+|---|---|---|
+| Finished (ok) | 18 | 20 |
+| Timeout | 2 (matplotlib-20826, sphinx-8265) | 0 |
+| Total run time | about 3.4 h | about 1 h |
+| Typical agent steps | 50 to 80 | 10 to 35 |
+| Tasks with a change to an existing file | 20 | 18 |
+| Tasks with helper files added (reproduce, patch scripts) | 1 (changelog file only) | 19 |
+| Tasks with environment files in the patch | 1 (matplotlib-20826) | 0 |
+
+Notes:
+- Repair success is not known yet. Patches still need scoring with the SWE-bench harness.
+- Qwen matplotlib-20826: the patch has 2 source changes and 9,327 new environment files (mamba_root, toolchain, micromamba, build logs). The agent tried to build the project inside the sandbox.
+- Gemma matplotlib-26291 and pytest-10081: no existing file changed, only helper scripts. These cannot fix the issue.
+- Qwen sympy-13091 changes 23 files. This matches the scope of the issue (comparison methods in many classes).
+- The sandbox has no project dependencies. Both models spent effort working around this.
+- Live container check during both runs: user 1000:1000, bridge network, read-only root, all capabilities dropped, 4 GB memory, 2 CPUs, 512 processes.
