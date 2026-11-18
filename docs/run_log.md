@@ -38,3 +38,12 @@ Notes:
 - Qwen sympy-13091 changes 23 files. This matches the scope of the issue (comparison methods in many classes).
 - The sandbox has no project dependencies. Both models spent effort working around this.
 - Live container check during both runs: user 1000:1000, bridge network, read-only root, all capabilities dropped, 4 GB memory, 2 CPUs, 512 processes.
+
+## 2026-11-18: pilot scoring (local SWE-bench 4.1.0, preliminary)
+
+Results and oracle bounds: docs/pilot_results.md (made by scripts/pilot_results.py).
+- Qwen3.8 resolved 16/20, Gemma-4 resolved 8/20. No scoring errors.
+- All 8 Gemma successes were also solved by Qwen in these runs.
+- Success oracle: 16/20. Token-oracle: 16/20 with 18.7M tokens (Qwen alone: 36.3M).
+- The harness image pull failed silently. Images were pulled by hand with VPN off, then scored with --clean false.
+- Dataset revision at scoring time matched the pinned revision 78f471bf.
