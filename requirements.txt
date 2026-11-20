@@ -1,0 +1,10 @@
+# Python 3.11 (runs used 3.11.18)
+# Loc2Repair pinned to the exact commit used in all runs
+loc2repair @ git+https://github.com/mohammad-nour-alawad/Loc2Repair.git@399b4dca53e6dc3e06c4531be3222dc7ec4d4d3f
+mini-swe-agent==1.17.5
+swebench==4.1.0
+datasets==5.2.0
+huggingface-hub==1.33.0
+litellm==1.109.1
+openai==3.50.0
+python-dotenv==1.2.4
