@@ -4,15 +4,23 @@ Inputs: run records (baseline.jsonl) and local harness reports.
 Timeouts count as unresolved (D8). Oracles use known outcomes and
 exclude routing overhead, so they are bounds, not methods.
 """
+import argparse
 import json
 import sys
 
-EXPECTED_TASKS = 20
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--qwen-run", default="runs/pilot/qwen38/baseline/baseline.jsonl")
+parser.add_argument("--qwen-report", default="runs/pilot/harness/qwen3.8.pilot-qwen38.json")
+parser.add_argument("--gemma-run", default="runs/pilot/gemma4/baseline/baseline.jsonl")
+parser.add_argument("--gemma-report", default="runs/pilot/harness/gemma-4-26B-A4B-it.pilot-gemma4.json")
+parser.add_argument("--expected-tasks", type=int, default=20)
+parser.add_argument("--out", default="docs/pilot_results.md")
+args = parser.parse_args()
+
+EXPECTED_TASKS = args.expected_tasks
 RUNS = {
-    "qwen": ("runs/pilot/qwen38/baseline/baseline.jsonl",
-             "runs/pilot/harness/qwen3.8.pilot-qwen38.json"),
-    "gemma": ("runs/pilot/gemma4/baseline/baseline.jsonl",
-              "runs/pilot/harness/gemma-4-26B-A4B-it.pilot-gemma4.json"),
+    "qwen": (args.qwen_run, args.qwen_report),
+    "gemma": (args.gemma_run, args.gemma_report),
 }
 
 
@@ -99,5 +107,5 @@ lines += ["", f"Success oracle (solved by at least one model): {both + only_q + 
           "Notes: one run per model. Timeouts count as unresolved. Tokens are input plus output,",
           "not money. Oracles use known outcomes and exclude routing overhead."]
 
-open("docs/pilot_results.md", "w").write("\n".join(lines) + "\n")
+open(args.out, "w").write("\n".join(lines) + "\n")
 print("\n".join(lines))
