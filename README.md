@@ -52,4 +52,5 @@ All 8 Gemma successes were also solved by Qwen in this pilot. A token-oracle kee
 ## Repository layout
     docs/        decisions, run log, reproduce guide, pilot task list and results, literature review
     scripts/     task selection, export checks, patch inspection, result tables, Laya test
-    requirements.txt, requirements-lock.txt, .env.example
+    tests/       unit tests for the analysis scripts (synthetic data)
+    requirements.txt, requirements-lock.txt, .env.example, pytest.ini

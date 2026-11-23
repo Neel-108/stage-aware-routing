@@ -40,3 +40,4 @@
 Success oracle (solved by at least one model): 16/20.
 Notes: one run per model. Timeouts count as unresolved. Tokens are input plus output,
 not money. Oracles use known outcomes and exclude routing overhead.
+For tasks neither model solved, the oracle counts the cheaper of the two runs.
