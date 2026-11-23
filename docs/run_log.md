@@ -47,3 +47,11 @@ Results and oracle bounds: docs/pilot_results.md (made by scripts/pilot_results.
 - Success oracle: 16/20. Token-oracle: 16/20 with 18.7M tokens (Qwen alone: 36.3M).
 - The harness image pull failed silently. Images were pulled by hand with VPN off, then scored with --clean false.
 - Dataset revision at scoring time matched the pinned revision 78f471bf.
+
+## 2026-11-23: Laya check and unit tests
+
+- Laya endpoint works (connections were refused on 19 Nov test). scripts/laya_smoke_test.py gets a model choice with probabilities.
+- Input limit observed: 512 tokens for the whole request. A 220-word report used 326 tokens, 385 input tokens in total. The question part takes about 59 tokens.
+- The reply reports truncation (truncated, state_tokens_dropped). Every Laya call must check it.
+- Added tests/test_scripts.py: 5 tests on synthetic data for list_patch_files.py, summarize_runs.py and pilot_results.py. All 5 pass.
+- The first pytest run also searched data/ and added 176 __pycache__ folders there. No task files changed. The folders were removed and pytest.ini now limits pytest to tests/.

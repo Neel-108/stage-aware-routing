@@ -15,3 +15,5 @@ D6 (2026-11-15): Pilot uses 20 tasks from SWE-bench Verified, chosen with seed 2
 D7 (2026-11-16): Before scoring, new files created by the agent for its environment are removed from patches. Confirmed so far: mamba_root/, toolchain/, micromamba, build.log, build2.log. Helper scripts (reproduce, patch scripts) stay in. Original patches are kept unchanged, cleaned copies are stored separately with a list of every removed path, and raw and cleaned scores are kept apart. The same rule applies to every model and condition. Timeouts stay timeouts.
 
 D8 (2026-11-18): Scoring follows the Loc2Repair default. Runs that did not finish (timeouts) are not scored and count as unresolved. Success rates use all 20 tasks as the denominator.
+
+D9 (2026-11-23): Unit tests for the analysis scripts run locally with pytest (tests/, pytest.ini). pytest only searches tests/, because data/ and runs/ hold task repositories with their own tests. 
