@@ -17,3 +17,5 @@ D7 (2026-11-16): Before scoring, new files created by the agent for its environm
 D8 (2026-11-18): Scoring follows the Loc2Repair default. Runs that did not finish (timeouts) are not scored and count as unresolved. Success rates use all 20 tasks as the denominator.
 
 D9 (2026-11-23): Unit tests for the analysis scripts run locally with pytest (tests/, pytest.ini). pytest only searches tests/, because data/ and runs/ hold task repositories with their own tests. 
+
+D10 (2026-11-24): The main experiment uses 50 SWE-bench Verified tasks chosen with seed 2027 at dataset revision 78f471bf655a3137b2e8a75af1501690ec009ec3, from the 480 tasks left after removing the 20 pilot tasks (docs/main_tasks.json, scripts/select_pilot.py --exclude docs/pilot_tasks.json). Plain random sampling with no hand-picking. The list is committed before any run and is not changed after seeing results. Repo mix: django 28, sympy 9, pytest 4, sphinx 3, scikit-learn 2, astropy, matplotlib, xarray and pylint 1 each. With seed 2026 and no exclusion, the script still gives the same 20 pilot tasks (checked byte for byte).

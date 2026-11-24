@@ -1,0 +1,334 @@
+{
+  "dataset": "SWE-bench/SWE-bench_Verified",
+  "revision": "78f471bf655a3137b2e8a75af1501690ec009ec3",
+  "split": "test",
+  "dataset_size": 500,
+  "seed": 2027,
+  "n": 50,
+  "method": "random.Random(seed).sample(pool, n), pool = all indices minus excluded IDs, sorted by index",
+  "tasks": [
+    {
+      "index": 6,
+      "instance_id": "astropy__astropy-13977",
+      "repo": "astropy/astropy",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 34,
+      "instance_id": "django__django-11138",
+      "repo": "django/django",
+      "difficulty": "1-4 hours"
+    },
+    {
+      "index": 39,
+      "instance_id": "django__django-11206",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 40,
+      "instance_id": "django__django-11211",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 56,
+      "instance_id": "django__django-11728",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 82,
+      "instance_id": "django__django-12406",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 85,
+      "instance_id": "django__django-12708",
+      "repo": "django/django",
+      "difficulty": "1-4 hours"
+    },
+    {
+      "index": 93,
+      "instance_id": "django__django-13023",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 94,
+      "instance_id": "django__django-13028",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 95,
+      "instance_id": "django__django-13033",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 115,
+      "instance_id": "django__django-13449",
+      "repo": "django/django",
+      "difficulty": "1-4 hours"
+    },
+    {
+      "index": 119,
+      "instance_id": "django__django-13551",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 133,
+      "instance_id": "django__django-13837",
+      "repo": "django/django",
+      "difficulty": "1-4 hours"
+    },
+    {
+      "index": 144,
+      "instance_id": "django__django-14140",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 150,
+      "instance_id": "django__django-14349",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 157,
+      "instance_id": "django__django-14500",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 169,
+      "instance_id": "django__django-14787",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 176,
+      "instance_id": "django__django-15098",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 178,
+      "instance_id": "django__django-15104",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 181,
+      "instance_id": "django__django-15161",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 182,
+      "instance_id": "django__django-15252",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 199,
+      "instance_id": "django__django-15569",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 207,
+      "instance_id": "django__django-15851",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 208,
+      "instance_id": "django__django-15863",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 211,
+      "instance_id": "django__django-15957",
+      "repo": "django/django",
+      "difficulty": "1-4 hours"
+    },
+    {
+      "index": 222,
+      "instance_id": "django__django-16256",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 237,
+      "instance_id": "django__django-16642",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 242,
+      "instance_id": "django__django-16819",
+      "repo": "django/django",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 244,
+      "instance_id": "django__django-16899",
+      "repo": "django/django",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 266,
+      "instance_id": "matplotlib__matplotlib-23476",
+      "repo": "matplotlib/matplotlib",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 315,
+      "instance_id": "pydata__xarray-6938",
+      "repo": "pydata/xarray",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 324,
+      "instance_id": "pylint-dev__pylint-6386",
+      "repo": "pylint-dev/pylint",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 333,
+      "instance_id": "pytest-dev__pytest-5262",
+      "repo": "pytest-dev/pytest",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 340,
+      "instance_id": "pytest-dev__pytest-7205",
+      "repo": "pytest-dev/pytest",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 347,
+      "instance_id": "pytest-dev__pytest-7982",
+      "repo": "pytest-dev/pytest",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 348,
+      "instance_id": "pytest-dev__pytest-8399",
+      "repo": "pytest-dev/pytest",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 351,
+      "instance_id": "scikit-learn__scikit-learn-10908",
+      "repo": "scikit-learn/scikit-learn",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 364,
+      "instance_id": "scikit-learn__scikit-learn-14053",
+      "repo": "scikit-learn/scikit-learn",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 389,
+      "instance_id": "sphinx-doc__sphinx-7440",
+      "repo": "sphinx-doc/sphinx",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 398,
+      "instance_id": "sphinx-doc__sphinx-8035",
+      "repo": "sphinx-doc/sphinx",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 420,
+      "instance_id": "sphinx-doc__sphinx-9602",
+      "repo": "sphinx-doc/sphinx",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 427,
+      "instance_id": "sympy__sympy-12419",
+      "repo": "sympy/sympy",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 439,
+      "instance_id": "sympy__sympy-13852",
+      "repo": "sympy/sympy",
+      "difficulty": "1-4 hours"
+    },
+    {
+      "index": 448,
+      "instance_id": "sympy__sympy-15345",
+      "repo": "sympy/sympy",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 457,
+      "instance_id": "sympy__sympy-16792",
+      "repo": "sympy/sympy",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 462,
+      "instance_id": "sympy__sympy-17655",
+      "repo": "sympy/sympy",
+      "difficulty": "<15 min fix"
+    },
+    {
+      "index": 468,
+      "instance_id": "sympy__sympy-19040",
+      "repo": "sympy/sympy",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 482,
+      "instance_id": "sympy__sympy-21612",
+      "repo": "sympy/sympy",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 494,
+      "instance_id": "sympy__sympy-24066",
+      "repo": "sympy/sympy",
+      "difficulty": "15 min - 1 hour"
+    },
+    {
+      "index": 499,
+      "instance_id": "sympy__sympy-24661",
+      "repo": "sympy/sympy",
+      "difficulty": "15 min - 1 hour"
+    }
+  ],
+  "excluded_from": "docs/pilot_tasks.json",
+  "excluded_ids": [
+    "django__django-11532",
+    "django__django-11790",
+    "django__django-13417",
+    "django__django-14631",
+    "django__django-16082",
+    "matplotlib__matplotlib-20826",
+    "matplotlib__matplotlib-22871",
+    "matplotlib__matplotlib-25775",
+    "matplotlib__matplotlib-26291",
+    "psf__requests-1921",
+    "pydata__xarray-4629",
+    "pydata__xarray-7233",
+    "pytest-dev__pytest-10081",
+    "scikit-learn__scikit-learn-25232",
+    "sphinx-doc__sphinx-8265",
+    "sympy__sympy-13091",
+    "sympy__sympy-13877",
+    "sympy__sympy-15875",
+    "sympy__sympy-16886",
+    "sympy__sympy-22714"
+  ]
+}
