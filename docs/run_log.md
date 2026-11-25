@@ -55,3 +55,11 @@ Results and oracle bounds: docs/pilot_results.md (made by scripts/pilot_results.
 - The reply reports truncation (truncated, state_tokens_dropped). Every Laya call must check it.
 - Added tests/test_scripts.py: 5 tests on synthetic data for list_patch_files.py, summarize_runs.py and pilot_results.py. All 5 pass.
 - The first pytest run also searched data/ and added 176 __pycache__ folders there. No task files changed. The folders were removed and pytest.ini now limits pytest to tests/.
+
+## 2026-11-25: aborted main runs
+
+- Qwen3.8, runs/main/qwen38/baseline (started night of 24 Nov): stopped manually after 3 of 50 tasks, all timeouts. Task 1 recorded no usage, task 2 had 52 steps, task 3 only 13 steps in 30 min. A direct 2-word prompt took 77.8 s during the run. Likely server slowness, not certain for all 3.
+- Gemma-4, runs/main/gemma4/baseline (25 Nov): stopped manually after 14 of 50 tasks. Rows 1 to 3 normal but row 4 (33 steps, 1766 s) ended just before the drop and may be affected. Rows 5 to 14: 0 steps, no usage, empty patch, about 900 s each, but status "ok" and exit code 0.
+- Cause of the Gemma failure: FortiClient VPN disconnected by itself around 12:00. After reconnecting both models answered normally.
+- Loc2Repair records a run with no model replies as "ok". This led to D11, D12 and scripts/supervise_run.py.
+- Both folders are kept untouched. New attempts use new folders (baseline_r2).
