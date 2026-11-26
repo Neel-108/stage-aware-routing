@@ -63,3 +63,10 @@ Results and oracle bounds: docs/pilot_results.md (made by scripts/pilot_results.
 - Cause of the Gemma failure: FortiClient VPN disconnected by itself around 12:00. After reconnecting both models answered normally.
 - Loc2Repair records a run with no model replies as "ok". This led to D11, D12 and scripts/supervise_run.py.
 - Both folders are kept untouched. New attempts use new folders (baseline_r2).
+
+## 2026-11-26: main repair runs completed
+
+- Gemma-4, runs/main/gemma4/baseline_r2 (25 to 26 Nov): 50/50 rows, IDs match docs/main_tasks.json, 0 zero-step rows. 49 ok, 1 timeout. 3.41 h, median 6.7 s/step. Tokens 25.6M in, 0.78M out. Gate passed (0.1 to 0.2 s).
+- Qwen3.8, runs/main/qwen38/baseline_r2 (26 Nov): 50/50 rows, IDs match, 0 zero-step rows. 44 ok, 6 timeouts. 10.03 h, median 7.4 s/step. Tokens 97.4M in, 3.71M out. Speed probe before start 2.0 to 5.5 s.
+- Both runs: same laptop, sandbox, 1800 s timeout, gate (D11) and watchdog (D12). Watchdog final check passed for both.
+- "ok" means the agent run completed, not that the task was solved. Results not inspected until the Laya design is frozen (D13).
