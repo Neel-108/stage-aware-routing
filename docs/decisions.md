@@ -23,3 +23,49 @@ D10 (2026-11-24): The main experiment uses 50 SWE-bench Verified tasks chosen wi
 D11 (2026-11-25): Before each main repair run, a gate sends 3 unique short prompts to the repair model (max_tokens 1024). Each reply must arrive within 10 s and be valid (it repeats a random code and gives the right answer), or the run does not start. The same gate applies to every model. Results are appended to pregate.txt next to the run folder. A fast gate does not guarantee a fast run. Thresholds set from probes on 25 Nov (Gemma 0.1 to 0.2 s, Qwen 1.6 to 2.3 s).
 
 D12 (2026-11-25): A row with zero or missing agent steps is flagged as a suspected infrastructure failure and investigated before scoring. Confirmed infrastructure failures are excluded from model-performance calculations and reported separately. The same rule applies to every model. Runs are supervised (scripts/supervise_run.py): the run stops when the model server is unreachable for 3 checks in a row (one model-list request every 60 s), when a row with 0 steps appears, or on Ctrl+C. At the end, all rows must be complete, match the task list exactly and have agent steps. Limits: a model-list check proves the API is reachable, not that inference works; a row written within the detection delay may still be invalid; automatic container cleanup works only if the container's mount matches the run folder. Normal timeouts with real agent steps stay valid results. Aborted runs are kept and logged.
+
+D13 (2026-11-26, DRAFT, waiting for the scientific advisor's feedback): Laya routing design, fixed before any main result is inspected.
+
+1. Exploration (Gemma-4)
+- Each of the 50 main tasks explored once, in the same sandbox image, under the watchdog (D12). Budget: 600 s per task in total, retries included.
+- Read-only: The task's repository snapshot is mounted read-only in the sandbox. The agent can write only to a separate scratch folder. A git status check on the snapshot after exploration is a second guard. Labels, gold patches, test patches and repair results are never mounted or shown. If read-only mounting is not possible without changing Loc2Repair and this is reported before any exploration run.
+- Output: A report of 150 to 250 words with fixed headings: Bug / Relevant files / Possible cause / Estimated difficulty (easy, medium or hard) / Uncertainties.
+- Failure (no valid report within the budget): recorded and reported. Laya and the rule fall back to Qwen for that task.
+
+2. Laya decision
+- Request: state.request = the report text.
+- Question: type "choice", instructions "Which model should repair this bug?"
+  Criteria: "gemma-4" = "The bug is localized to one or two files, the cause is clear, estimated difficulty is easy and few uncertainties remain."
+  "qwen3.8" = "The bug spans several files or components and the cause is unclear, the estimated difficulty is medium or hard, or important uncertainties remain."
+- Decision: the returned choice. Probabilities logged and never used for tuning.
+- Truncation (512-token limit): if truncated or state_tokens_dropped > 0, each section is shortened from the end while all headings are kept and the call is repeated once. Still truncated, or a call error after 3 tries: fall back to Qwen, counted as a Laya failure.
+
+3. Policies (same 50 tasks, same order as docs/main_tasks.json; outcomes looked up from the r2 repair runs)
+- Always-Qwen, Always-Gemma.
+- Random: each task to Gemma with p = 0.5, random.Random(2028), in task-list order.
+- Matched random: random.Random(2028) picks exactly as many tasks for Gemma as Laya does.
+- Simple rule: Gemma if the report names exactly one distinct relevant file that exists in the task's repository snapshot, otherwise Qwen.
+- Laya with report.
+- Success, token and time oracles: bounds only.
+
+4. Ablation
+- Laya without exploration: state.request = the issue text, cut from the end to fit under the input limit. Same question and criteria.
+
+5. Overhead (policy-specific, failed attempts and retries included)
+- Always-Qwen, Always-Gemma, Random, Matched random: no overhead.
+- Simple rule: exploration overhead only.
+- Laya with report: exploration + Laya calls.
+- Laya without exploration: Laya calls only.
+- Recorded per task: exploration input and output tokens, time, failures; per Laya call: input_tokens, state_tokens, state_tokens_dropped, truncated, latency, retries, failures.
+- Missing usage is recorded as missing, never as 0. Repair and overhead are reported separately and as totals.
+
+6. Scoring and statistics
+- SWE-bench 4.1.0 harness as in the pilot or lab scoring if available. Timeouts are unresolved (D8).
+- Confirmed infrastructure failures (D12) excluded from paired comparisons. Coverage over all 50 tasks is reported and every comparison uses the common evaluable task set.
+- Resolved: paired exact McNemar vs always-Qwen and vs always-Gemma.
+- Tokens and time: paired bootstrap, 10,000 resamples, seed 2029, 95% confidence intervals for differences.
+- All results reported, including where Laya loses. With 50 tasks and one run per model a non-significant difference is not evidence of equivalence.
+
+7. Repair runs are not changed. The report is used only for the routing decision.
+
+8. End-to-end demonstration: The full pipeline (explore, decide, run the chosen repair model) runs live on 1 to 2 tasks, to show the working system. These runs are separate from the 50-task evaluation.
