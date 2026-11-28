@@ -27,10 +27,12 @@ D12 (2026-11-25): A row with zero or missing agent steps is flagged as a suspect
 D13 (2026-11-26, DRAFT, waiting for the scientific advisor's feedback): Laya routing design, fixed before any main result is inspected.
 
 1. Exploration (Gemma-4)
-- Each of the 50 main tasks explored once, in the same sandbox image, under the watchdog (D12). Budget: 600 s per task in total, retries included.
-- Read-only: The task's repository snapshot is mounted read-only in the sandbox. The agent can write only to a separate scratch folder. A git status check on the snapshot after exploration is a second guard. Labels, gold patches, test patches and repair results are never mounted or shown. If read-only mounting is not possible without changing Loc2Repair and this is reported before any exploration run.
-- Output: A report of 150 to 250 words with fixed headings: Bug / Relevant files / Possible cause / Estimated difficulty (easy, medium or hard) / Uncertainties.
-- Failure (no valid report within the budget): recorded and reported. Laya and the rule fall back to Qwen for that task.
+- Each of the 50 main tasks explored once with Gemma, in the same sandbox image, under the watchdog (D12). One attempt, no retries, 600 s per task.
+- Implementation: Loc2Repair run-baseline with its existing --repair-cmd-template option and our own config (configs/explore.yaml). Loc2Repair itself is unchanged. The task file is sanitized (scripts/make_explore_tasks.py): test names and dataset hints are removed, so the prompt is the issue text only.
+- Read-only: instructed by the prompt, as in Loc2Repair's localization stage. The agent works on a throwaway copy of the snapshot with a read-only root filesystem. The dataset folder, gold patches, test patches and repair results are not mounted. Any change in the workspace diff after the run makes the exploration a failure. An empty diff shows no remaining changes, not strictly read-only execution. A read-only mount would need a change to Loc2Repair (D2).
+- Output: a report with fixed headings: Bug / Relevant files / Possible cause / Estimated difficulty (easy, medium or hard) / Uncertainties. Target length 150 to 250 words.
+- Valid report (scripts/extract_reports.py): run status ok, workspace unchanged, report submitted, all five sections present in order and non-empty, at most 250 words, difficulty easy, medium or hard, and at least one listed file exists in the snapshot (relative paths only, no '..', no symlinks outside). No minimum length: in the smoke test (pilot task django__django-11532, 28 Nov) a complete and specific report had 118 words, and a minimum would push such reports into the Qwen fallback.
+- Failure (no valid report within 600 s): recorded with its reason, tokens and time. Laya and the rule fall back to Qwen for that task.
 
 2. Laya decision
 - Request: state.request = the report text.
@@ -69,3 +71,5 @@ D13 (2026-11-26, DRAFT, waiting for the scientific advisor's feedback): Laya rou
 7. Repair runs are not changed. The report is used only for the routing decision.
 
 8. End-to-end demonstration: The full pipeline (explore, decide, run the chosen repair model) runs live on 1 to 2 tasks, to show the working system. These runs are separate from the 50-task evaluation.
+
+9. Limitation of the completed repair runs: the repair prompt included the dataset hints text when present (Loc2Repair default, runtime/runner/stages.py). The same for both models and the pilot. No rerun.

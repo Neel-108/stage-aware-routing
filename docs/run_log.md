@@ -70,3 +70,10 @@ Results and oracle bounds: docs/pilot_results.md (made by scripts/pilot_results.
 - Qwen3.8, runs/main/qwen38/baseline_r2 (26 Nov): 50/50 rows, IDs match, 0 zero-step rows. 44 ok, 6 timeouts. 10.03 h, median 7.4 s/step. Tokens 97.4M in, 3.71M out. Speed probe before start 2.0 to 5.5 s.
 - Both runs: same laptop, sandbox, 1800 s timeout, gate (D11) and watchdog (D12). Watchdog final check passed for both.
 - "ok" means the agent run completed, not that the task was solved. Results not inspected until the Laya design is frozen (D13).
+
+## 2026-11-28: exploration smoke test (pilot task)
+
+- Pilot task django__django-11532 (first in docs/pilot_tasks.json), runs/explore_smoke/gemma4. Gemma, configs/explore.yaml, sanitized task file, gate passed, watchdog final check passed.
+- 5 steps, 21.6 s, 17,742 input and 1,336 output tokens. Workspace unchanged. No dataset hints and no test names in the prompt.
+- Report extracted from the trajectory: all five sections, difficulty easy, both listed files exist. 118 words, so it failed the first 150-word minimum. The minimum was dropped (D13), and the same report is valid with the updated checker.
+- Issue: commands placed after the watchdog in the same block did not run, because a child process read the rest of the script from stdin. Fixed by giving commands stdin from /dev/null.
